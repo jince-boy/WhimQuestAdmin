@@ -4,7 +4,7 @@ import VueDevTools from 'vite-plugin-vue-devtools'
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
 import {resolve} from "path";
-import {RouteRecordRaw} from "vue-router";
+import {NaiveUiResolver} from "unplugin-vue-components/resolvers";
 // https://vitejs.dev/config/
 export default defineConfig({
     plugins: [
@@ -13,11 +13,21 @@ export default defineConfig({
         AutoImport({
             imports: [
                 "vue",
-                "vue-router"
+                "vue-router",
+                {
+                    'naive-ui': [
+                        'useDialog',
+                        'useMessage',
+                        'useNotification',
+                        'useLoadingBar'
+                    ]
+                }
             ],
             dts: true
         }),
-        Components({ /* options */})
+        Components({
+            resolvers: [NaiveUiResolver()]
+        })
     ],
     server: {
         port: 80,

@@ -8,6 +8,14 @@ const constantRouter: RouteRecordRaw[] = [
         meta: {
             title: "首页"
         }
+    },
+    {
+        name: 'login',
+        path: '/login',
+        component: () => import("@/views/login.vue"),
+        meta: {
+            title: '登录'
+        }
     }
 ]
 const router: Router = createRouter({

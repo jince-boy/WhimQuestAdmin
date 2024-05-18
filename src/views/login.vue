@@ -3,8 +3,7 @@
 </script>
 
 <template>
-  首页
-  <router-link to="/login">123</router-link>
+登录
 </template>
 
 <style scoped>

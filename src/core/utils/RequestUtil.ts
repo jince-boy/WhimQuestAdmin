@@ -1,8 +1,7 @@
-import axios, {AxiosInstance, AxiosResponse, InternalAxiosRequestConfig} from "axios";
+import axios, {AxiosInstance, AxiosRequestConfig, AxiosResponse, InternalAxiosRequestConfig} from "axios";
 
 
 const axiosInstance: AxiosInstance = axios.create({
-    baseURL: "http://localhost:8080",
     timeout: 10000
 })
 
@@ -45,13 +44,15 @@ const getConfigByMethod = (method: RequestMethod, params?: any) => {
     }
 };
 
-export const request = (url: string, params?: any, method?: RequestMethod) => {
+export const request = (url: string, params?: any, method?: RequestMethod, config?: AxiosRequestConfig) => {
     return new Promise((resolve, reject) => {
-        const config = {
+        const defaultConfig = {
             url,
             ...getConfigByMethod(method || RequestMethod.GET, params)
         }
-        axiosInstance(config).then(res => resolve(res)).catch(error => reject(error))
+        const requestConfig = {...defaultConfig, ...config}; // 合并默认配置和自定义配置
+        axiosInstance(requestConfig).then(res => resolve(res)).catch(error => reject(error))
     })
 }
+
 export default axiosInstance;
