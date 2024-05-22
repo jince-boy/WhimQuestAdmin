@@ -1,26 +1,29 @@
 import {defineStore} from 'pinia'
-import {useLoadingBar, LoadingBarApi} from 'naive-ui'
+import {LoadingBarApi} from 'naive-ui'
 
 interface LoadingBarState {
-    loadingBar: LoadingBarApi
+    loadingBar: LoadingBarApi | null
 }
 
 const useLoadingBarStore = defineStore('loadingBar', {
     state: (): LoadingBarState => ({
-        loadingBar: useLoadingBar()
+        loadingBar: null
     }),
 
     actions: {
+        setLoadingBar(loadingBar: LoadingBarApi) {
+            this.loadingBar = loadingBar;
+        },
         startLoading() {
-            this.loadingBar.start()
+            this.loadingBar?.start()
         },
 
         finishLoading() {
-            this.loadingBar.finish()
+            this.loadingBar?.finish()
         },
 
         errorLoading() {
-            this.loadingBar.error()
+            this.loadingBar?.error()
         }
     }
 })

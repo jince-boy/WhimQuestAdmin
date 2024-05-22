@@ -9,7 +9,9 @@ import {NaiveUiResolver} from "unplugin-vue-components/resolvers";
 export default defineConfig({
     plugins: [
         vue(),
-        VueDevTools(),
+        VueDevTools({
+            launchEditor: 'webstorm'
+        }),
         AutoImport({
             imports: [
                 "vue",

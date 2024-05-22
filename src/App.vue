@@ -1,25 +1,26 @@
 <script setup lang="ts">
 import {themeOverrides} from "@/core/config/NaiveTheme.ts";
 import useThemeStore from "@/core/pinia/ThemeStore.ts";
-// import "@/core/router/permission.ts"
+import RouterViewComponent from "@/components/RouterViewComponent.vue";
 
 const theme = useThemeStore()
-
-watch(
-    () => theme.theme,
-    (newTheme) => {
-      theme.onThemeChange(newTheme)
-    },
-    {immediate: true}
-)
 </script>
 
 <template>
   <n-config-provider :theme="theme.getTheme()" :theme-overrides="themeOverrides">
-    <!-- 加载条-->
-    <n-loading-bar-provider>
-      <router-view></router-view>
-    </n-loading-bar-provider>
+    <!-- 信息-->
+    <n-message-provider>
+      <!-- 通知-->
+      <n-notification-provider>
+        <!-- 对话框-->
+        <n-dialog-provider>
+          <!-- 加载条-->
+          <n-loading-bar-provider>
+            <RouterViewComponent/>
+          </n-loading-bar-provider>
+        </n-dialog-provider>
+      </n-notification-provider>
+    </n-message-provider>
   </n-config-provider>
 </template>
 
